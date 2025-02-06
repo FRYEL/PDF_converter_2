@@ -5,7 +5,7 @@ from functions.ml_api_utils import chunk_text_by_tokens, query, translate_with_A
 app = Flask(__name__)
 
 # Just for testing purposes in development
-app.secret_key = os.urandom(24)
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
 
 @app.route('/')
@@ -33,7 +33,9 @@ def translate():
 
     _, translated_data = translate_with_API(text, target_lang, translator="Google")
     print(translated_data)
-    return translated_data
+
+    return jsonify(translated_data)
+
 
 
 @app.route('/summarize', methods=['POST'])
@@ -86,4 +88,4 @@ def summarize():
 
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=False)
