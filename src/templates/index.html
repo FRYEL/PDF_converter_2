@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>PDF Translator and Summarizer</title>
+</head>
+
+<body>
+
+<div id="loading-overlay">
+    <div class="spinner"></div>
+    <p id="loading-text"></p> <!-- Added text container -->
+</div>
+
+
+<div id="page-container">
+    <div id="header-div">
+        <header>
+            <div class="header-container">
+                <h1>Translate and Summarize Your PDF</h1>
+                <p class="subtitle">Upload your file, choose a language, and get your results quickly!</p>
+            </div>
+        </header>
+    </div>
+    <div id="main-div">
+        <main>
+            <section class="upload-section">
+                <div class="main-container">
+                    <div class="instructions-container">
+                        <h2>Instructions</h2>
+                        <p>Upload your PDF file per drag and drop or click to upload. Select your desired translation
+                            language from our supported languages below. Your PDF text will be translated and
+                            summarized.</p>
+                        <h2>Supported Languages</h2>
+                        <ul>
+                            <li>English</li>
+                            <li>Spanish</li>
+                            <li>French</li>
+                            <li>German</li>
+                            <li>Italian</li>
+
+                        </ul>
+                    </div>
+                    <div class="form-container">
+                        <form id="pdfForm">
+                            <div class="form-group">
+                                <h2 >Select PDF:</h2>
+                                <input type="file" id="file" name="file" accept="application/pdf" required>
+                            </div>
+                            <div class="form-group">
+                                <h2 >Select Target Language:</h2>
+                                <select id="lang" name="target_lang">
+                                    <option value="EN">English</option>
+                                    <option value="DE">German</option>
+                                    <option value="FR">French</option>
+                                    <option value="ES">Spanish</option>
+                                    <option value="IT">Italian</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn-primary">Process</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="results" class="results hidden">
+                <h2>Results</h2>
+                <div id="result-content">
+                    <h3>Original Text:</h3>
+                    <p id="original-text"></p>
+                    <h3>Translated Text:</h3>
+                    <p id="translated-text"></p>
+                    <h3>Summary:</h3>
+                    <p id="summary-text"></p>
+                </div>
+            </section>
+
+
+            <script>
+                const form = document.getElementById('pdfForm');
+                const resultsDiv = document.getElementById('results');
+                const loadingOverlay = document.getElementById('loading-overlay');
+                const loadingText = document.getElementById('loading-text'); // Reference the loading text element
+
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    // Show spinner overlay
+                    loadingOverlay.style.display = 'flex';
+                    loadingText.textContent = 'Translating...';
+
+                    const formData = new FormData(form);
+
+                    try {
+                        const translateResponse = await fetch('/translate', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+
+                        const translateData = await translateResponse.json();
+                        if (!translateResponse.ok) throw new Error(translateData.error || 'Translation failed');
+
+                        loadingText.textContent = 'Summarizing...';
+                        // Summarization API call
+                        const summarizeResponse = await fetch('/summarize', {
+                            method: 'POST',
+                            body: new URLSearchParams({translated_text: translateData.translated_text}),
+                        });
+
+                        const summarizeData = await summarizeResponse.json();
+                        if (!summarizeResponse.ok) throw new Error(summarizeData.error || 'Summarization failed');
+
+                        resultsDiv.innerHTML = `
+            <h2>Results</h2>
+            <h3>Original Text:</h3>
+            <p>${translateData.original_text}</p>
+            <h3>Translated Text:</h3>
+            <p>${translateData.translated_text}</p>
+            <h3>Summary:</h3>
+            <p>${summarizeData.summary}</p>
+        `;
+                    } catch (error) {
+                        resultsDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+                    } finally {
+                        loadingOverlay.style.display = 'none';
+                        resultsDiv.classList.remove('hidden');
+                    }
+                });
+
+            </script>
+        </main>
+    </div>
+
+
+    <div id="footer-div">
+        <footer>
+            <p>&copy; 2025 PDF Translator and Summarizer, made by Furkan Yel</p>
+        </footer>
+    </div>
+</div>
+</body>
+</html>

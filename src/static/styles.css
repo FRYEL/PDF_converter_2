@@ -1,0 +1,295 @@
+/* General Reset and Base Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background-color: #ffffff;
+    color: #454545;
+}
+
+/* Header Styles */
+header {
+    background: #ffffff;
+    color: #454545;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 1.8rem; /* Smaller font size for the title */
+    margin: 0; /* Remove extra margin */
+}
+
+header .subtitle {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #454545;
+}
+
+#loading-overlay { /* Spinner overlay */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+}
+
+#loading-overlay p {
+    color: #ffffff; /* White text for better visibility */
+    font-size: 1.2rem;
+    margin-top: 20px;
+    font-weight: 450;
+    text-align: center;
+}
+.spinner {
+    border: 6px solid #f3f3f3; /* Light grey */
+    border-top: 6px solid #0f70e6; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Main Container */
+.main-container {
+    max-width: 800px; /* Match the width of .results */
+    display: flex;
+    align-items: stretch; /* Align containers to the top */
+    gap: 20px; /* Space between instructions and form */
+}
+
+.upload-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+/* Instructions Container */
+.instructions-container {
+    width: 450px;
+    padding: 15px;
+    background-color: #FFFFFF;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 8px 10px #eeeeee;
+    margin-left: 20px;
+}
+
+.instructions-container ul li::marker {
+    color: #0f70e6; /* Change bullet point color */
+}
+
+/* Form Container */
+.form-container {
+    max-width: 600px;
+    min-width: 350px;
+    margin-right: 20px;
+    background: #FFFFFF;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 8px 10px #eeeeee;
+    justify-content: center;
+}
+
+#pdfForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 40px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: flex;
+    margin-bottom: 10px;
+    color: #454545;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Button Styles */
+.btn-primary {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    background-color: #0f70e6;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #3c81fa;
+}
+
+/* Results Section */
+.results {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 0 8px 10px #eeeeee;
+    color: #333;
+}
+
+.results h2 {
+    text-align: center;
+    color: #0f70e6;
+    margin-bottom: 20px;
+}
+
+.results h3 {
+    color: #333;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.results p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #ffffff;
+    color: #454545;
+    margin-top: 40px;
+}
+
+/* Hidden Class */
+.hidden {
+    display: none; /* Hide the element */
+}
+
+/* Footer Styling */
+.footer-div {
+    text-align: center;
+    padding: 10px 0;
+    background: #007bff;
+    color: #fff;
+    flex-shrink: 0; /* Prevent footer from shrinking */
+}
+
+/* Ensure the html and body take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main page container spans full viewport height */
+#page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Push footer to the bottom */
+#main-div {
+    flex: 1; /* Take up available space */
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #ffffff;
+    color: #454545;
+    flex-shrink: 0; /* Prevent footer from shrinking */
+    margin-top: auto; /* Push footer to the bottom if content is short */
+    border: 1px solid #ddd;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .main-container {
+        flex-direction: column; /* Stack instructions and form vertically */
+        align-items: center;
+        gap: 10px;
+    }
+
+    .instructions-container,
+    .form-container {
+        width: 90%; /* Use most of the screen width */
+        margin: 0 auto;
+        box-shadow: none; /* Simplify design */
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+    }
+
+    header .subtitle {
+        font-size: 0.9rem;
+    }
+
+    #pdfForm {
+        gap: 10px;
+    }
+
+    .results {
+        width: 90%;
+        margin: 20px auto;
+        box-shadow: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .btn-primary {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .results h2 {
+        font-size: 1.2rem;
+    }
+
+    .results h3 {
+        font-size: 1rem;
+    }
+
+    .results p {
+        font-size: 0.9rem;
+    }
+}
