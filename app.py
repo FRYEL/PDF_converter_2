@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template, session
 import os
-from src.functions.ml_api_utils import chunk_text_by_tokens, query, translate_with_API, extract_text_from_pdf
+from functions.ml_api_utils import chunk_text_by_tokens, query, translate_with_API, extract_text_from_pdf
 
 app = Flask(__name__)
 
