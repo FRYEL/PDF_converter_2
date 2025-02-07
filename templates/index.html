@@ -95,7 +95,7 @@
                     const formData = new FormData(form);
 
                     try {
-                        const translateResponse = await fetch('/api/translate', {
+                        const translateResponse = await fetch('/translate', {
                             method: 'POST',
                             body: formData
                         });
@@ -106,7 +106,7 @@
 
                         loadingText.textContent = 'Summarizing...';
                         // Summarization API call
-                        const summarizeResponse = await fetch('/api/summarize', {
+                        const summarizeResponse = await fetch('/summarize', {
                             method: 'POST',
                             body: new URLSearchParams({translated_text: translateData.translated_text}),
                         });
