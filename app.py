@@ -17,7 +17,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/translate', methods=['POST'])
+@app.route('/translate', methods=['POST','GET'])
 def translate():
     """
     Translate the text extracted from the PDF file using the GoogleTranslate API or DeepL API
