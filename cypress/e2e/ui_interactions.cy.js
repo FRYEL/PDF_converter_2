@@ -2,7 +2,7 @@ import "cypress-file-upload";
 
 describe("UI Interactions", () => {
     beforeEach(() => {
-        cy.visit("http://localhost:5000");
+        cy.visit("http://127.0.0.1:5000");
     });
 
     it("Shows a loading spinner while processing", () => {

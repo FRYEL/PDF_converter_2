@@ -2,7 +2,7 @@ import "cypress-file-upload";
 
 describe("API Error Handling", () => {
     beforeEach(() => {
-        cy.visit("http://localhost:5000");
+        cy.visit("http://127.0.0.1:5000");
     });
 
     it("Displays error message if translation fails", () => {

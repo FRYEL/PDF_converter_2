@@ -2,7 +2,7 @@ import "cypress-file-upload";
 
 describe("PDF Translator and Summarizer", () => {
   beforeEach(() => {
-    cy.visit("/");
+    cy.visit("http://127.0.0.1:5000/");
   });
 
   it("Uploads a PDF and processes it", () => {
