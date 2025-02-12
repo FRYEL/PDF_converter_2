@@ -4,7 +4,6 @@ from functions.ml_api_utils import chunk_text_by_tokens, query, translate_with_A
 
 app = Flask(__name__)
 
-# Just for testing purposes in development
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
 
@@ -30,12 +29,12 @@ def translate():
 
     # Calling the extract_text_from_pdf function, translate_with_API function and returning the translated_data
     text = extract_text_from_pdf(pdf_file)
+    print("-------------------------- TRANSLATING TEXT -------------------------------")
 
     _, translated_data = translate_with_API(text, target_lang, translator="Google")
     print(translated_data)
 
     return jsonify(translated_data)
-
 
 
 @app.route('/summarize', methods=['POST'])
@@ -52,7 +51,7 @@ def summarize():
     print("-------------------------- CHUNKING TEXT BY TOKENS -------------------------------")
 
     chunks = list(
-        chunk_text_by_tokens(text_back_to_english, max_tokens=900))  # Adjust max_tokens if necessary
+        chunk_text_by_tokens(text_back_to_english, max_tokens=900))
 
     print("-------------------------- STARTING SUMMARIZATION WITH HF INFERENCE API -------------------------------")
     summaries = []
@@ -62,7 +61,7 @@ def summarize():
         payload = {"inputs": chunk,
                    "parameters": {
                        "truncation": True,
-                       "max_length": 1024  # Adjust based on the model's limit
+                       "max_length": 1024  #
                    }}
         summary = query(payload)
         summaries.append(summary)
@@ -73,15 +72,11 @@ def summarize():
     )
 
     print("-------------------------- SUMMARIZATION SUCCESSFUL -------------------------------")
-    print("-------------------------- TEST IS HERE -------------------------------")
 
     print(f"Summaries List: {summaries}")
 
-
-
     # Translate the final summary back to the target language
     final_combined_summary, x = translate_with_API(combined_summary, target_lang, translator="Google")
-    print("-------------------------- 2nd TEST IS HERE -------------------------------")
 
     print(f"Final Summary: {final_combined_summary}")
     return jsonify({'summary': final_combined_summary})
