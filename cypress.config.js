@@ -2,7 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "http://localhost:5000", // Adjust to your Flask server's URL
+    baseUrl: "http://127.0.0.1:5000",
     supportFile: false,
   },
 });
